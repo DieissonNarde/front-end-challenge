@@ -12,9 +12,11 @@ const globalStyle = createGlobalStyle`
     --primary-color: #5C16C5;
     --bg-dark: #2D0C5E;
     --text: #FFFFFF;
-    --select-button: #D18000;
+    --text-button: #323232;
+    --selected-button: #D18000;
 
     font-size: 62.5%; /* 1rem = 10px */
+    font-family: 'Roboto', sans-serif;
   }
 `;
 

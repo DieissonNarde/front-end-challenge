@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const HContainer = styled.header`
   height: 5.6rem;
-  max-width: 99vw;
+  max-width: 100vw;
 
   background-color: var(--primary-color);
 `;
@@ -20,6 +20,7 @@ export const HContent = styled.div`
   }
   
   @media (min-width: 1200px) {
+    max-width: 99vw;
     justify-content: flex-start;
     margin-left: 11.2rem;
 

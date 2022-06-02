@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { DetailsDiv, InfoDiv, MovieContainer, MovieContent, PosterDiv, ScoreDiv, SinopseDiv } from "../styles/components/movieInfo";
 
-import MovieImg from '../assets/png/movie-img.png';
+import PosterMovie from '../assets/png/poster-movie.png';
 
 export function MovieInfo() {
 
@@ -10,17 +10,17 @@ export function MovieInfo() {
     <MovieContainer>
       <MovieContent>
         <PosterDiv>
-          <Image src={MovieImg} alt={'Imagem de capa do filme'} />
+          <Image src={PosterMovie} alt={'Imagem de capa do filme'} />
         </PosterDiv>
 
         <InfoDiv>
           <h1>Deadpool(2016)</h1>
 
           <DetailsDiv>
-            <p>16 anos</p>
-            <p>11/02/2016 (BR)</p>
-            <p>Ação, Aventura, Comédia, Ficção científica</p>
-            <p>1h 47m</p>
+            <span>16 anos</span>
+            <span>11/02/2016 (BR)</span>
+            <span>Ação, Aventura, Comédia, Ficção científica</span>
+            <span>1h 47m</span>
           </DetailsDiv>
 
           <ScoreDiv>

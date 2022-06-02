@@ -1,25 +1,45 @@
 import styled from 'styled-components';
 
 export const MovieContainer = styled.section`
-  width: 100vw;
+  max-width: 100vw;
   height: 100%;
   background-color: #2D0C5E;
   padding-top: 3.4rem;
   padding-bottom: 7.1rem;
+
+  @media (min-width: 1100px) {
+    max-width: 100%;
+    padding-top: 7.2rem;
+    padding-bottom: 0;
+  }
 `;
 
 export const MovieContent = styled.div`
   height: fit-content;
   padding: 0 4%;
+
+  @media (min-width: 1100px) {
+    margin: 0 auto;
+    padding-inline: 11.2rem;
+
+    display: flex;
+    flex-wrap: nowrap;
+  }
 `;
 
 export const PosterDiv = styled.div`
-  max-width: 18.6rem;
+  width: 18.6rem;
   height: auto;
   border-radius: 8px;
   margin: 0 auto;
 
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+  @media (min-width: 1100px) {
+    min-width: 38.3rem;
+    height: auto;
+    margin-bottom: -4.6rem;
+  }
 `;
 
 export const InfoDiv = styled.div`
@@ -59,16 +79,55 @@ export const InfoDiv = styled.div`
       }
     }
   }
+
+  @media (min-width: 1100px) {
+    margin-left: 3.3rem;
+
+    h1 {
+      margin: 0;
+    }
+
+    > ul {
+      margin-top: 0;
+
+      > li {
+        margin-top: 2.3rem;
+        margin-bottom: 0;
+      }
+    }
+  }
 `;
 
 export const DetailsDiv = styled.div`
   margin-top: .3rem;
 
-  > p {
+  > span {
+    display: block;
     color: #FFFFFF;
     font-weight: 400;
     font-size: 1.8rem;
     line-height: 2.4rem;
+  }
+
+  @media (min-width: 1100px) {
+    margin-top: .8rem;
+    display: flex;
+    flex-wrap: wrap;
+    
+    span {
+      display: flex;
+      align-items: center;
+    }
+
+    span+span::before {
+      content: '';
+      background: #FFFFFF;
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+      margin: 0 1rem;
+    }
   }
 `;
 
@@ -81,6 +140,11 @@ export const ScoreDiv = styled.div`
     font-weight: 400;
     font-size: 1.6rem;
     line-height: 2rem;
+  }
+
+  @media (min-width: 1100px) {
+    margin-top: 1.6rem;
+    margin-bottom: 3.2rem;
   }
 `;
 
@@ -99,5 +163,11 @@ export const SinopseDiv = styled.div`
     font-size: 1.6rem;
     line-height: 2.4rem;
     letter-spacing: -0.005em;
+  }
+
+  @media (min-width: 1100px) {
+    > p {
+      margin-top: .8rem;
+    }
   }
 `;

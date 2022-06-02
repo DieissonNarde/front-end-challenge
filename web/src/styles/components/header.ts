@@ -19,8 +19,8 @@ export const HContent = styled.div`
     height: auto;
   }
   
-  @media (min-width: 1200px) {
-    max-width: 99vw;
+  @media (min-width: 1024px) {
+    max-width: 100%;
     justify-content: flex-start;
     margin-left: 11.2rem;
 

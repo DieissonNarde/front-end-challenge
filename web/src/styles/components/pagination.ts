@@ -24,8 +24,6 @@ export const PItem = styled.li<PItemProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* padding: 0 1.2rem; */
   
   border-radius: 50%;
   
@@ -49,9 +47,7 @@ export const PItem = styled.li<PItemProps>`
 export const ArrowIcon = styled.div<PArrowIconProps>`
   &::before {
     position: relative;
-    /* top: 3pt; Uncomment this to lower the icons as requested in comments*/
     content: '';
-    /* By using an em scale, the arrows will size with the font */
     display: inline-block;
     width: .8rem;
     height: .8rem;

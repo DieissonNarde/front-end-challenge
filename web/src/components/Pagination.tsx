@@ -13,7 +13,7 @@ interface PaginationProps {
 export function Pagination({
   onPageChange,
   totalCount,
-  siblingCount = 1,
+  siblingCount = 2,
   currentPage,
   pageSize
 }: PaginationProps): JSX.Element | null {
@@ -37,7 +37,7 @@ export function Pagination({
     onPageChange(currentPage - 1);
   };
 
-  let lastPage = Number([paginationRange.pages.length - 1]);
+  const lastPage = Number(paginationRange.totalPages) || Number(paginationRange.pages.length);
 
   return (
     <PContainer>
@@ -66,7 +66,7 @@ export function Pagination({
         <ArrowIcon type={'right'} />
       </PItem>
 
-      {paginationRange.totalPages && (
+      {lastPage - siblingCount > currentPage && paginationRange.totalPages && (
         <PItem
           selected={paginationRange.totalPages === currentPage}
           onClick={() => onPageChange(paginationRange.totalPages || 0)}

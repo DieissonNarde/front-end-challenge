@@ -22,8 +22,8 @@ export function usePagination({
   const paginationRange = useMemo(() => {
     const totalPageCount: number = Math.ceil(totalCount / pageSize);
 
-    // A contagem de páginas é determinada com siblingCount + firstPage + lastPage + currentPage + 2*DOTS
-    const totalPageNumbers = siblingCount + 5;
+    // A contagem de páginas é determinada com siblingCount + firstPage + currentPage
+    const totalPageNumbers = siblingCount * 2 + 2;
 
     /*
       Caso 1:
@@ -46,16 +46,15 @@ export function usePagination({
       Não mostramos pontos apenas quando há apenas um número de página a ser inseridos entre os extremos dos irmãos e os limites das páginas, ou seja, 1 e totalPageCount. Assim, estamos usando leftSiblingIndex > 2 e rightSiblingIndex < totalPageCount - 2
     */
     const shouldShowLeftDots = leftSiblingIndex > 2;
-    const shouldShowRightDots = rightSiblingIndex < totalPageCount - 2;
+    const shouldShowRightDots = rightSiblingIndex < totalPageCount;
 
     const firstPageIndex = 1;
-    const lastPageIndex = totalPageCount;
 
     /*
       Caso 2: Não há pontos à esquerda para serem exibidos, mas pontos à direita para exibir
     */
     if (!shouldShowLeftDots && shouldShowRightDots) {
-      let leftItemCount = 3 + 2 * siblingCount;
+      let leftItemCount = 2 + siblingCount * 2;
       let leftRange = range(1, leftItemCount);
 
       return ({ 'pages': [...leftRange], 'totalPages': totalPageCount });
@@ -66,12 +65,12 @@ export function usePagination({
     */
     if (shouldShowLeftDots && !shouldShowRightDots) {
 
-      let rightItemCount = 3 + 2 * siblingCount;
+      let rightItemCount = siblingCount * 2;
       let rightRange = range(
-        totalPageCount - rightItemCount + 1,
+        totalPageCount - rightItemCount,
         totalPageCount
       );
-      return ({ 'pages': [firstPageIndex, ...rightRange] });
+      return ({ 'pages': [firstPageIndex, ...rightRange], 'totalPages': totalPageCount });
     }
 
     /*
@@ -79,7 +78,7 @@ export function usePagination({
     */
     if (shouldShowLeftDots && shouldShowRightDots) {
       let middleRange = range(leftSiblingIndex, rightSiblingIndex);
-      return ({ 'pages': [firstPageIndex, ...middleRange, lastPageIndex] });
+      return ({ 'pages': [firstPageIndex, ...middleRange], 'totalPages': totalPageCount });
     }
   }, [totalCount, pageSize, siblingCount, currentPage]);
 

@@ -1,8 +1,9 @@
 import Image from "next/image";
 
-import { DetailsDiv, InfoDiv, MovieContainer, MovieContent, PosterDiv, ScoreDiv, SinopseDiv } from "../styles/components/movieInfo";
+import { DetailsDiv, InfoDiv, MovieContainer, MovieContent, PosterDiv, SinopseDiv } from "../styles/components/movieInfo";
 
 import PosterMovie from '../assets/png/poster-movie.png';
+import { Score } from "./Score";
 
 export function MovieInfo() {
 
@@ -23,9 +24,7 @@ export function MovieInfo() {
             <span>1h 47m</span>
           </DetailsDiv>
 
-          <ScoreDiv>
-            <span>Avaliação dos usuários</span>
-          </ScoreDiv>
+          <Score />
 
           <SinopseDiv>
             <h3>Sinopse</h3>

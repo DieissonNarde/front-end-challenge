@@ -131,23 +131,6 @@ export const DetailsDiv = styled.div`
   }
 `;
 
-export const ScoreDiv = styled.div`
-  margin: 3.1rem 0;
-
-  > span {
-    margin-left: 1.16rem;
-    color: #FFFFFF;
-    font-weight: 400;
-    font-size: 1.6rem;
-    line-height: 2rem;
-  }
-
-  @media (min-width: 1100px) {
-    margin-top: 1.6rem;
-    margin-bottom: 3.2rem;
-  }
-`;
-
 export const SinopseDiv = styled.div`
   > h3 {
     color: #FFFFFF;

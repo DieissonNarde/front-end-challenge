@@ -12,6 +12,7 @@ interface PArrowIconProps {
 
 export const PContainer = styled.ul`
   display: flex;
+  justify-content: center;
   list-style-type: none;
   gap: .4rem;
 `;

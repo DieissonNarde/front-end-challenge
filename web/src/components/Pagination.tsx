@@ -13,7 +13,7 @@ interface PaginationProps {
 export function Pagination({
   onPageChange,
   totalCount,
-  siblingCount = 2,
+  siblingCount = 1,
   currentPage,
   pageSize
 }: PaginationProps): JSX.Element | null {

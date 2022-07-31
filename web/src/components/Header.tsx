@@ -1,14 +1,11 @@
-
 import { HContainer, HContent } from "../styles/components/header";
-
-import Logo from '../assets/svg/logo.svg';
 
 export function Header() {
 
   return (
     <HContainer>
       <HContent>
-        <Logo />
+        <img src="/svg/logo.svg" alt="Logo TMDB" />
       </HContent>
     </HContainer>
   )

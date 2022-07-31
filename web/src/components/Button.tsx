@@ -1,7 +1,6 @@
 import { ReactNode, useState } from "react";
 import { BContainer, BContent } from "../styles/components/button";
 
-import CloseCircle from '../assets/svg/close-circle.svg';
 
 interface ButtonProps {
   children: ReactNode;
@@ -28,7 +27,7 @@ export function Button({ children }: ButtonProps) {
         >
           <BContent>
             {children}
-            <CloseCircle />
+            <img src="/svg/close-circle.svg" />
           </BContent>
         </BContainer>
       ) : (

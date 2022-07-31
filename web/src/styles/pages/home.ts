@@ -43,7 +43,7 @@ export const HeaderContent = styled.div`
       line-height: 5.6rem;
       letter-spacing: -0.005em;
       margin-bottom: 4rem;
-      max-width: 78.1rem;
+      max-width: 80rem;
       margin-inline: auto;
     }
 
@@ -83,7 +83,6 @@ export const CardWrapper = styled.div`
 
   @media (min-width: 1024px) {
     gap: 3.2rem;
-    justify-content: flex-start;
 
     > div {
       margin-bottom: 1.6rem;

@@ -1,17 +1,24 @@
 import Image from 'next/image';
 
 import { CardContainer, CardImg } from '../styles/components/card';
-import MovieImg from '../assets/png/movie-img.png';
 
-export function Card() {
+interface CardProps {
+  poster: string;
+  title: string;
+  date: string;
+}
+
+const imageUrl = process.env.NEXT_PUBLIC_IMG_URL;
+
+export function Card({ poster, title, date }: CardProps) {
 
   return (
     <CardContainer>
       <CardImg>
-        <Image src={MovieImg} alt={"Imagem de capa do filme"} />
+        <img src={`${imageUrl}${poster}`} alt={title} className={"image"} />
       </CardImg>
-      <h2>Clifford</h2>
-      <p>12 NOV 2021</p>
+      <h2>{title}</h2>
+      <p>{date}</p>
     </CardContainer>
   )
 }

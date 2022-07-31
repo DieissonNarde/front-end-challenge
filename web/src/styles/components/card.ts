@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const CardContainer = styled.div`
   display: inline-block;
+  max-width: 15.467rem;
 
   h2 {
     margin-top: 1rem;
@@ -19,6 +20,8 @@ export const CardContainer = styled.div`
   }
 
   @media (min-width: 1024px) {
+    max-width: 17.6rem;
+
     h2 {
       margin-top: .8rem;
       font-size: 1.6rem;
@@ -33,12 +36,11 @@ export const CardContainer = styled.div`
 `;
 
 export const CardImg = styled.div`
-  max-width: 15.467rem;
-  height: auto;
   border-radius: 4px;
   border: 1px solid #E7E7E7;
-
-  @media (min-width: 1024px) {
-    max-width: 17.6rem;
+  
+  .image {
+    width: 100%;
+    height: auto;
   }
 `;

@@ -36,11 +36,16 @@ export const CardContainer = styled.div`
 `;
 
 export const CardImg = styled.div`
+  width: 15.6rem;
   border-radius: 4px;
   border: 1px solid #E7E7E7;
   
   .image {
     width: 100%;
     height: auto;
+  }
+
+  @media (min-width: 1024px) {
+    width: 17.6rem;
   }
 `;

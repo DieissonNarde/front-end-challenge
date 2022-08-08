@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 
 import api from '../services/api';
 
@@ -68,12 +69,16 @@ const Home: NextPage = () => {
                 <>
                   {movies &&
                     movies.map(movie => (
-                      <Card
-                        key={movie.id}
-                        poster={movie.poster_path}
-                        title={movie.title}
-                        date={movie.release_date}
-                      />
+                      <Link href={`/movie/${movie.id}`}>
+                        <a>
+                          <Card
+                            key={movie.id}
+                            image={movie.poster_path}
+                            title={movie.title}
+                            subtitle={movie.release_date}
+                          />
+                        </a>
+                      </Link>
                     ))
                   }
                 </>

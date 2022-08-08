@@ -8,6 +8,10 @@ const globalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  a {
+    cursor: pointer;
+  }
+
   :root {
     --primary-color: #5C16C5;
     --bg-dark: #2D0C5E;

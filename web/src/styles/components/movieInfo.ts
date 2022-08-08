@@ -35,6 +35,11 @@ export const PosterDiv = styled.div`
 
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 
+  .image {
+    width: 100%;
+    height: auto;
+  }
+
   @media (min-width: 1100px) {
     min-width: 38.3rem;
     height: auto;

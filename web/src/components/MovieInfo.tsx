@@ -1,67 +1,93 @@
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 import { DetailsDiv, InfoDiv, MovieContainer, MovieContent, PosterDiv, SinopseDiv } from "../styles/components/movieInfo";
-
-import PosterMovie from '../assets/png/poster-movie.png';
 import { Score } from "./Score";
 
-export function MovieInfo() {
+
+interface MovieInfoProps {
+  movie: IMovie | undefined;
+  crews: Array<ICrew>;
+}
+
+interface IMovie {
+  id: number;
+  poster_path: string;
+  title: string;
+  overview: string;
+  release_date: string;
+  video: boolean;
+  vote_average: number;
+  adult: boolean;
+  runtime: number;
+  genres: Array<IGenre> | undefined;
+}
+
+interface IGenre {
+  name: string;
+}
+
+interface ICrew {
+  id: number;
+  department: string;
+  name: string;
+  job: string;
+}
+
+const imageUrl = process.env.NEXT_PUBLIC_IMG_URL;
+
+export function MovieInfo({ movie, crews }: MovieInfoProps) {
+  const [genres, setGenres] = useState<Array<IGenre> | undefined>([]);
+
+  useEffect(() => {
+    setGenres(movie?.genres);
+  }, [genres])
 
   return (
     <MovieContainer>
       <MovieContent>
-        <PosterDiv>
-          <Image src={PosterMovie} alt={'Imagem de capa do filme'} />
-        </PosterDiv>
+        {movie && (
+          <>
+            <PosterDiv>
+              <img src={`${imageUrl}${movie.poster_path}`} alt={movie.title} className={"image"} />
+            </PosterDiv>
 
-        <InfoDiv>
-          <h1>Deadpool(2016)</h1>
+            <InfoDiv>
+              <h1>{movie.title}</h1>
 
-          <DetailsDiv>
-            <span>16 anos</span>
-            <span>11/02/2016 (BR)</span>
-            <span>Ação, Aventura, Comédia, Ficção científica</span>
-            <span>1h 47m</span>
-          </DetailsDiv>
+              <DetailsDiv>
+                {movie.adult ? (
+                  <span>18 anos</span>
+                ) : (
+                  <span>16 anos</span>
+                )}
+                <span>{movie.release_date}</span>
+                <span>{genres?.map((genre: IGenre) => (
+                  <>
+                    {genre.name + ", "}
+                  </>
+                ))}</span>
+                <span>{movie.runtime}</span>
+              </DetailsDiv>
 
-          <Score />
+              <Score voteAverage={movie.vote_average} />
 
-          <SinopseDiv>
-            <h3>Sinopse</h3>
-            <p>
-              Baseado no anti-herói não convencional da Marvel Comics,
-              Deadpool conta a história da origem do ex-agente das Forças
-              Especiais que se tornou o mercenário Wade Wilson.
-              Depois de ser submetido a um desonesto experimento que o deixa
-              com poderes de cura acelerada, Wade adota o alter ego de Deadpool.
-              Armado com suas novas habilidades e um senso de humor negro e
-              distorcido, Deadpool persegue o homem que quase destruiu sua vida.
-            </p>
-          </SinopseDiv>
+              <SinopseDiv>
+                <h3>Sinopse</h3>
+                <p>{movie.overview}</p>
+              </SinopseDiv>
 
-          <ul>
-            <li>
-              <p>Rob Liefeld</p>
-              <p>Characters</p>
-            </li>
-            <li>
-              <p>Rob Liefeld</p>
-              <p>Characters</p>
-            </li>
-            <li>
-              <p>Rob Liefeld</p>
-              <p>Characters</p>
-            </li>
-            <li>
-              <p>Rob Liefeld</p>
-              <p>Characters</p>
-            </li>
-            <li>
-              <p>Rob Liefeld</p>
-              <p>Characters</p>
-            </li>
-          </ul>
-        </InfoDiv>
+              <ul>
+                {crews.map((crew: ICrew) => (
+                  <li key={crew.id}>
+                    <p>{crew.name}</p>
+                    <p>{crew.job}</p>
+                  </li>
+                ))}
+              </ul>
+            </InfoDiv>
+          </>
+        )}
       </MovieContent>
     </MovieContainer>
   )

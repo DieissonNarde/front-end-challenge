@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 import api from '../services/api';
+import { formatDateBR } from "../utils/formatDateBR";
 
 import { Header } from '../components/Header';
 import { Button } from '../components/Button';
@@ -26,9 +27,14 @@ const Home: NextPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
+  function handleFormatDate(releaseDate : string) {
+    const textMonth = true;
+    return formatDateBR({releaseDate, textMonth});
+  }
+
   useEffect(() => {
     async function getPopularMovies() {
-      await api.get(`/popular?api_key=${apiKey}&page=${currentPage}`)
+      await api.get(`/popular?api_key=${apiKey}&page=${currentPage}&language=pt-BR`)
         .then((response) => {
           const data = response.data.results;
 
@@ -69,21 +75,21 @@ const Home: NextPage = () => {
                 <>
                   {movies &&
                     movies.map(movie => (
-                      <Link href={`/movie/${movie.id}`}>
-                        <a>
-                          <Card
-                            key={movie.id}
-                            image={movie.poster_path}
-                            title={movie.title}
-                            subtitle={movie.release_date}
-                          />
-                        </a>
-                      </Link>
+                      <div key={movie.id}>
+                        <Link href={`/movie/${movie.id}`}>
+                          <a>
+                            <Card
+                              image={movie.poster_path}
+                              title={movie.title}
+                              subtitle={handleFormatDate(movie.release_date)}
+                            />
+                          </a>
+                        </Link>
+                      </div>
                     ))
                   }
                 </>
               )}
-
             </CardWrapper>
           </HomeContent>
 

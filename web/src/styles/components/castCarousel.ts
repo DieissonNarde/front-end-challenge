@@ -19,11 +19,15 @@ export const CContent = styled.div`
 `;
 
 export const CItem = styled.div`
-  height: 33.6rem;
+  height: 32rem;
   padding: .8rem;
   flex: none;
   background: #FFFFFF;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   margin-bottom: 2.6rem;
+
+  @media (min-width: 1024px) {
+    height: 37rem;
+  }
 `;

@@ -1,4 +1,4 @@
-import { CContainer, CContent, CItem } from "../styles/components/carousel";
+import { CContainer, CContent, CItem } from "../styles/components/castCarousel";
 
 import { Card } from "./Card";
 
@@ -8,6 +8,7 @@ interface CarouselProps {
 
 interface ICast {
   id: number;
+  cast_id: number;
   profile_path: string;
   name: string;
   character: string;
@@ -19,7 +20,7 @@ export function CastCarousel({ casts }: CarouselProps) {
     <CContainer>
       <CContent>
         {casts.map((cast) => (
-          <CItem key={cast.id}>
+          <CItem key={cast.cast_id}>
             <Card image={cast.profile_path} title={cast.name} subtitle={cast.character} />
           </CItem>
         ))}

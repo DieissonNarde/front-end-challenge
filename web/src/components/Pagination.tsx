@@ -51,6 +51,7 @@ export function Pagination({
       {paginationRange.pages.map((pageNumber: number) => {
         return (
           <PItem
+            key={pageNumber}
             selected={pageNumber === currentPage}
             onClick={() => onPageChange(pageNumber)}
           >

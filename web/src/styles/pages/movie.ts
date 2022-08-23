@@ -21,6 +21,23 @@ export const MovieContent = styled.div`
     }
   }
 
+  .box-video {
+    position: relative;
+    padding-bottom: 56.25%; 
+    padding-top: 0;
+    
+    overflow: hidden;
+    margin:0 auto;
+  }
+
+  .box-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
   @media (min-width: 1024px) {
     padding: 7.4rem 11.2rem 5.4rem;
 
@@ -30,6 +47,13 @@ export const MovieContent = styled.div`
       > h2 {
         margin-bottom: 2.4rem;
       }
+    }
+
+    .box-video {
+      padding-bottom: 0;
+      max-width: 90rem;
+      height: 50rem;
+      margin: 0;
     }
   }
 `;

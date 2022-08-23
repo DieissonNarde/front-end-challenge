@@ -45,7 +45,16 @@ export const CardImg = styled.div`
     height: auto;
   }
 
+  .notfound {
+    width: 100%;
+    height: 23rem;
+  }
+
   @media (min-width: 1024px) {
     width: 17.6rem;
+
+    .notfound {
+      height: 26.10rem;
+    }
   }
 `;

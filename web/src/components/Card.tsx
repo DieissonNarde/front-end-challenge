@@ -14,7 +14,11 @@ export function Card({ image, title, subtitle }: CardProps) {
   return (
     <CardContainer>
       <CardImg>
-        <img src={`${imageUrl}${image}`} alt={title} className={"image"} />
+        {image === null ? (
+          <img src="/png/notfound.png" alt={title} className={"notfound"} />
+        ) : (
+          <img src={`${imageUrl}${image}`} alt={title} className={"image"} />
+        )}
       </CardImg>
       <h2>{title}</h2>
       <p>{subtitle}</p>

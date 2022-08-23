@@ -106,7 +106,7 @@ export const InfoDiv = styled.div`
 export const DetailsDiv = styled.div`
   margin-top: .3rem;
 
-  > span {
+  > .detail-item {
     display: block;
     color: #FFFFFF;
     font-weight: 400;
@@ -119,7 +119,7 @@ export const DetailsDiv = styled.div`
     display: flex;
     flex-wrap: wrap;
     
-    span {
+    .detail-item {
       display: flex;
       align-items: center;
     }

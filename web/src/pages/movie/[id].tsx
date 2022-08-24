@@ -153,10 +153,10 @@ export const getServerSideProps: GetServerSideProps = async (
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
   const id = context.query.id as string;
 
-  const resMovie = await api.get<IMovie>(`${id}?api_key=${apiKey}&language=pt-BR`);
-  const resRecommends = await api.get<IRecommends>(`${id}/recommendations?api_key=${apiKey}&language=pt-BR`);
-  const resCredits = await api.get<ICredits>(`${id}/credits?api_key=${apiKey}&language=pt-BR`);
-  const resVideos = await api.get<IVideos>(`${id}/videos?api_key=${apiKey}&language=pt-BR`);
+  const resMovie = await api.get<IMovie>(`/movie/${id}?api_key=${apiKey}&language=pt-BR`);
+  const resRecommends = await api.get<IRecommends>(`/movie/${id}/recommendations?api_key=${apiKey}&language=pt-BR`);
+  const resCredits = await api.get<ICredits>(`/movie/${id}/credits?api_key=${apiKey}&language=pt-BR`);
+  const resVideos = await api.get<IVideos>(`/movie/${id}/videos?api_key=${apiKey}&language=pt-BR`);
   
   const movie = resMovie.data;
   const recommends = resRecommends.data.results;

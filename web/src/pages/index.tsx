@@ -11,7 +11,7 @@ import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { Pagination } from '../components/Pagination';
 
-import { CardWrapper, CategoryWrapper, HeaderContainer, HeaderContent, HomeContent, HomeSection } from '../styles/pages/home';
+import { CardWrapper, GenresWrapper, HeaderContainer, HeaderContent, HomeContent, HomeSection } from '../styles/pages/home';
 
 interface IMovie {
   id: number;
@@ -20,10 +20,16 @@ interface IMovie {
   release_date: string;
 }
 
+interface IGenre {
+  id: number;
+  name: string;
+}
+
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
 const Home: NextPage = () => {
   const [movies, setMovies] = useState<Array<IMovie>>([]);
+  const [genres, setGenres] = useState<Array<IGenre>>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
@@ -34,7 +40,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     async function getPopularMovies() {
-      await api.get(`/popular?api_key=${apiKey}&page=${currentPage}&language=pt-BR`)
+      await api.get(`/movie/popular?api_key=${apiKey}&page=${currentPage}&language=pt-BR`)
         .then((response) => {
           const data = response.data.results;
 
@@ -45,7 +51,19 @@ const Home: NextPage = () => {
         });
     }
 
+    async function getMovieGenres() {
+      await api.get(`/genre/movie/list?api_key=${apiKey}&language=pt-BR`)
+        .then((response) => {
+          const data = response.data.genres;
+
+          setGenres(data);
+        }, (error) => {
+          console.error(error);
+        });
+    }
+
     getPopularMovies();
+    getMovieGenres();
   }, [currentPage])
 
   return (
@@ -61,9 +79,16 @@ const Home: NextPage = () => {
             <HeaderContent>
               <h3>Milhões de filmes, séries e pessoas para descobrir. Explore já.</h3>
               <p>FILTRE POR:</p>
-              <CategoryWrapper>
-                <Button>Teste</Button>
-              </CategoryWrapper>
+              <GenresWrapper>
+                {genres.map(genre => (
+                  <Button
+                    key={genre.id}
+                    id={genre.id}
+                  >
+                    {genre.name}
+                  </Button>
+                ))}
+              </GenresWrapper>
             </HeaderContent>
           </HeaderContainer>
 

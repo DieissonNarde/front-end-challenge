@@ -53,7 +53,7 @@ export const HeaderContent = styled.div`
   }
 `;
 
-export const CategoryWrapper = styled.div`
+export const GenresWrapper = styled.div`
   display: inline-flex;
   flex-wrap: wrap;
   gap: 1.2rem;

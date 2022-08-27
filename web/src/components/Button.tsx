@@ -1,32 +1,51 @@
-import { ReactNode, useState } from "react";
+import { useEffect, useState } from "react";
 import { BContainer, BContent } from "../styles/components/button";
 
+import { useSelectedGenres } from "../hooks/useSelectedGenres";
 
-interface ButtonProps {
-  children: ReactNode;
+interface IGenre {
+  id: number;
+  name: string;
 }
 
-export function Button({ children }: ButtonProps) {
-  const [selectedButton, setSelectedButton] = useState(false);
+interface ButtonProps {
+  genre: IGenre;
+}
 
-  function handleSelectButton() {
-    if (selectedButton) {
-      return setSelectedButton(false);
-    }
+export function Button({ genre }: ButtonProps) {
+  const [isActive, setIsActive] = useState<boolean>(false);
 
-    return setSelectedButton(true);
+  const { selectedGenres, addSelectedGenres, removeSelectedGenres } = useSelectedGenres();
+
+  function handleAddSelectedGenre() {
+    addSelectedGenres(genre.id);
+    setIsActive(true);
   }
 
+  function handleRemoveSelectedGenre() {
+    removeSelectedGenres(genre.id);
+    setIsActive(false);
+  }
+  
+  useEffect(() => {
+    selectedGenres.forEach(selectedGenre => {
+      if (genre.id === selectedGenre) {
+        setIsActive(true);
+        return;
+      }
+    })
+  }, [])
+  
   return (
     <>
-      {selectedButton ? (
+      {isActive ? (
         <BContainer
           bgColor={'var(--selected-button)'}
           colorText={'#FFFFFF'}
-          onClick={handleSelectButton}
+          onClick={handleRemoveSelectedGenre}
         >
           <BContent>
-            {children}
+            {genre.name}
             <img src="/svg/close-circle.svg" />
           </BContent>
         </BContainer>
@@ -34,9 +53,9 @@ export function Button({ children }: ButtonProps) {
         <BContainer
           bgColor={'#FFFFFF'}
           colorText={'var(--text-button)'}
-          onClick={handleSelectButton}
+          onClick={handleAddSelectedGenre}
         >
-          {children}
+          {genre.name}
         </BContainer>
       )}
     </>

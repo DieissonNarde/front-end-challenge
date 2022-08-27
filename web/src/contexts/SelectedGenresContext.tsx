@@ -1,33 +1,24 @@
 import { createContext, ReactNode, useState } from "react";
 
-
 interface SelectedGenresContextProviderProps {
   children: ReactNode;
 }
 
-interface IGenre {
-  id: number;
-  name: string;
-}
-
 interface ISelectedGenresContext {
-  selectedGenres: Array<IGenre>;
-  addSelectedGenres: (genre: IGenre) => void;
-  removeSelectedGenres: (genre: IGenre) => void;
+  selectedGenres: Array<number>;
+  addSelectedGenres: (genre: number) => void;
+  removeSelectedGenres: (genre: number) => void;
 }
-
 
 export const SelectedGenresContext = createContext({} as ISelectedGenresContext);
 
-
 export function SelectedGenresContextProvider({ children }: SelectedGenresContextProviderProps): JSX.Element {
-  const [selectedGenres, setSelectedGenres] = useState<Array<IGenre>>(() => {
-    if (typeof window === 'undefined') {
+  const [selectedGenres, setSelectedGenres] = useState<Array<number>>(() => {
+    if (typeof window === "undefined") {
       return [];
     }
     try {
       const storagedSelectedGenres = window.localStorage.getItem('@TMDB:selectedGenres');
-      console.log('Storagedd Genres', storagedSelectedGenres);
 
       if (storagedSelectedGenres) {
         return JSON.parse(storagedSelectedGenres);
@@ -35,32 +26,32 @@ export function SelectedGenresContextProvider({ children }: SelectedGenresContex
       
       return [];
     } catch(error) {
-      console.error('Error storaged', error);
+      console.error("Erro ao pegar dados de localStoraged", error);
       return [];
     }
     
   });
 
-  async function addSelectedGenres(genre: IGenre) {
+  async function addSelectedGenres(genre: number) {
     try {  
       if (typeof window !== "undefined") {
-        setSelectedGenres([...selectedGenres, { ...genre } ])
-        localStorage.setItem('@TMDB:selectedGenres', JSON.stringify([...selectedGenres, { ...genre }]))
+        setSelectedGenres([...selectedGenres, genre ])
+        localStorage.setItem('@TMDB:selectedGenres', JSON.stringify([...selectedGenres, genre]))
       }
-    } catch {
-      console.log('Erro ao setar item na lista de Gêneros Selecionados!');
+    } catch(error) {
+      console.error('Erro ao setar item na lista de Gêneros Selecionados!', error);
     }
   }
 
-  async function removeSelectedGenres(genre: IGenre) {
+  async function removeSelectedGenres(genreId: number) {
     try {  
       if (typeof window !== "undefined") {
-        const updateSelectedGenres = selectedGenres.filter(genresItem => genresItem.id !== genre.id);
+        const updateSelectedGenres = selectedGenres.filter(genresItem => genresItem !== genreId);
         setSelectedGenres(updateSelectedGenres);
         localStorage.setItem('@TMDB:selectedGenres', JSON.stringify(updateSelectedGenres))
       }
-    } catch {
-      console.log('Erro ao remover item da lista de Gêneros Selecionados!');
+    } catch(error) {
+      console.error('Erro ao remover item da lista de Gêneros Selecionados!', error);
     }
   }
 

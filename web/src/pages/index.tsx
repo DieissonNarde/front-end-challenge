@@ -69,10 +69,13 @@ const Home: NextPage = () => {
   async function getMoviesWithGenres() {
     await api.get(`/discover/movie?with_genres=${encodeURI(selectedGenres.join(','))}&api_key=${apiKey}&page=${currentPage}&language=pt-BR`)
       .then((response) => {
-        console.log("Response ", response)
-        const data = response.data.results;
+        const data = response.data;
 
-        setMovies(data);
+        if (data.total_pages < currentPage) {
+          setCurrentPage(1);
+        }
+
+        setMovies(data.results);
         data.total_results < 600 ? setTotalResults(data.total_results) : setTotalResults(600);
         setLoading(false);
       }, (error) => {
@@ -139,7 +142,7 @@ const Home: NextPage = () => {
           <Pagination
             currentPage={currentPage}
             totalCount={totalResults}
-            pageSize={movies.length}
+            pageSize={20}
             siblingCount={1}
             onPageChange={(page: number) => setCurrentPage(page)}
           />

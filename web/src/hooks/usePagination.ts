@@ -12,7 +12,6 @@ function range(start: number, end: number) {
   return Array.from({ length }, (_, idx) => idx + start);
 };
 
-
 export function usePagination({
   totalCount,
   pageSize,

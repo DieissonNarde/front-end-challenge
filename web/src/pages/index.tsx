@@ -3,8 +3,10 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 
+const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 import api from '../services/api';
 import { formatDateBR } from "../utils/formatDateBR";
+import { useSelectedGenres } from '../hooks/useSelectedGenres';
 
 import { Header } from '../components/Header';
 import { Button } from '../components/Button';
@@ -18,6 +20,7 @@ interface IMovie {
   poster_path: string;
   title: string;
   release_date: string;
+  genre_ids: Array<number>;
 }
 
 interface IGenre {
@@ -25,46 +28,63 @@ interface IGenre {
   name: string;
 }
 
-const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-
 const Home: NextPage = () => {
   const [movies, setMovies] = useState<Array<IMovie>>([]);
   const [genres, setGenres] = useState<Array<IGenre>>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalResults, setTotalResults] = useState(1);
   const [loading, setLoading] = useState(true);
+
+  const { selectedGenres } = useSelectedGenres();
 
   function handleFormatDate(releaseDate : string) {
     const textMonth = true;
     return formatDateBR({releaseDate, textMonth});
   }
 
+  async function getMovieGenres() {
+    await api.get(`/genre/movie/list?api_key=${apiKey}&language=pt-BR`)
+      .then((response) => {
+        const data = response.data.genres;
+
+        setGenres(data);
+      }, (error) => {
+        console.error("Erro em get movie genres api", error);
+      });
+  }
+
+  async function getPopularMovies() {
+    await api.get(`/movie/popular?api_key=${apiKey}&page=${currentPage}&language=pt-BR`)
+      .then((response) => {
+        const data = response.data;
+
+        setMovies(data.results);
+        data.total_results < 600 ? setTotalResults(data.total_results) : setTotalResults(600);
+        setLoading(false);
+      }, (error) => {
+        console.error("Erro em get popular movies api", error);
+      });
+  }
+
+  async function getMoviesWithGenres() {
+    await api.get(`/discover/movie?with_genres=${encodeURI(selectedGenres.join(','))}&api_key=${apiKey}&page=${currentPage}&language=pt-BR`)
+      .then((response) => {
+        console.log("Response ", response)
+        const data = response.data.results;
+
+        setMovies(data);
+        data.total_results < 600 ? setTotalResults(data.total_results) : setTotalResults(600);
+        setLoading(false);
+      }, (error) => {
+        console.error("Erro em get movies with genres api", error);
+      });
+  }
+
   useEffect(() => {
-    async function getPopularMovies() {
-      await api.get(`/movie/popular?api_key=${apiKey}&page=${currentPage}&language=pt-BR`)
-        .then((response) => {
-          const data = response.data.results;
-
-          setMovies(data);
-          setLoading(false);
-        }, (error) => {
-          console.error(error);
-        });
-    }
-
-    async function getMovieGenres() {
-      await api.get(`/genre/movie/list?api_key=${apiKey}&language=pt-BR`)
-        .then((response) => {
-          const data = response.data.genres;
-
-          setGenres(data);
-        }, (error) => {
-          console.error(error);
-        });
-    }
-
-    getPopularMovies();
     getMovieGenres();
-  }, [currentPage])
+
+    selectedGenres.length === 0 ? getPopularMovies() : getMoviesWithGenres();
+  }, [currentPage, selectedGenres])
 
   return (
     <>
@@ -83,10 +103,8 @@ const Home: NextPage = () => {
                 {genres.map(genre => (
                   <Button
                     key={genre.id}
-                    id={genre.id}
-                  >
-                    {genre.name}
-                  </Button>
+                    genre={genre}
+                  />
                 ))}
               </GenresWrapper>
             </HeaderContent>
@@ -120,7 +138,7 @@ const Home: NextPage = () => {
 
           <Pagination
             currentPage={currentPage}
-            totalCount={400}
+            totalCount={totalResults}
             pageSize={movies.length}
             siblingCount={1}
             onPageChange={(page: number) => setCurrentPage(page)}

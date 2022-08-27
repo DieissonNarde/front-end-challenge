@@ -10,7 +10,6 @@ import { Card } from '../../components/Card';
 
 import { CardWrapper, MovieContent, MovieSection } from '../../styles/pages/movie';
 import Link from 'next/link';
-import { format } from 'path';
 
 interface IMovie {
   id: number;
@@ -156,7 +155,7 @@ export const getServerSideProps: GetServerSideProps = async (
   const resMovie = await api.get<IMovie>(`/movie/${id}?api_key=${apiKey}&language=pt-BR`);
   const resRecommends = await api.get<IRecommends>(`/movie/${id}/recommendations?api_key=${apiKey}&language=pt-BR`);
   const resCredits = await api.get<ICredits>(`/movie/${id}/credits?api_key=${apiKey}&language=pt-BR`);
-  const resVideos = await api.get<IVideos>(`/movie/${id}/videos?api_key=${apiKey}&language=pt-BR`);
+  const resVideos = await api.get<IVideos>(`/movie/${id}/videos?api_key=${apiKey}`);
   
   const movie = resMovie.data;
   const recommends = resRecommends.data.results;

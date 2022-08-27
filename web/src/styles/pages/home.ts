@@ -81,6 +81,12 @@ export const CardWrapper = styled.div`
     margin-bottom: 2.4rem;
   }
 
+  .loading {
+    font-size: 4.6rem;
+    color: #5C16C5;
+    padding-block: 12rem;
+  }
+
   @media (min-width: 1024px) {
     gap: 3.2rem;
 

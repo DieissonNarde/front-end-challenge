@@ -116,7 +116,7 @@ const Home: NextPage = () => {
           <HomeContent>
             <CardWrapper>
               {loading ? (
-                <p>Loading...</p>
+                <p className='loading'>Loading...</p>
               ) : (
                 <>
                   {movies &&

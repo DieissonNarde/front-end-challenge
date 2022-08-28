@@ -1,5 +1,6 @@
-<img src="/web/public/svg/logo.svg" width="200">
-
+<h1 align="center">
+  <img src="/web/public/svg/logo.svg" width="200">
+</h1>
 <p align="center">
   Aplicação para consulta de filmes por listagem de mais populares do dia e filtragem por gêneros.
 </p>
